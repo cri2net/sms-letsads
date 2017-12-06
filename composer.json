@@ -1,0 +1,23 @@
+{
+    "name": "cri2net/sms-letsads",
+    "type": "library",
+    "description": "PHP Library for letsads.com sms service",
+    "authors": [
+        {
+            "name": "Andrey Davidovich",
+            "email": "cri2net@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "cri2net/sms-client": "^1.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "cri2net\\Sms\\": "src"
+        }
+    },
+    "license": "proprietary"
+}
