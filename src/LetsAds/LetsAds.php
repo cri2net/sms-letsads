@@ -187,7 +187,7 @@ class LetsAds extends AbstractSMS
             throw new Exception("Поле table не задано");
         }
 
-        $stm = PDO_DB::prepare("SELECT * FROM `{$this->table}` WHERE processing=? AND status IN ('complete') AND (processing_status IS NULL OR processing_status IN ('MESSAGE_IN_QUEUE'))");
+        $stm = PDO_DB::prepare("SELECT * FROM {$this->table} WHERE processing=? AND status IN ('complete') AND (processing_status IS NULL OR processing_status IN ('MESSAGE_IN_QUEUE'))");
         $stm->execute([$this->getProcessingKey()]);
 
         while ($item = $stm->fetch()) {
