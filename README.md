@@ -19,13 +19,14 @@ composer require cri2net/sms-letsads
 
 ### обычная оправка
 ``` php
+<?php
 
 use cri2net\Sms\LetsAds\LetsAds;
 
 $sms = new LetsAds($login, $password);
 $sms->alfaname = 'MyName'; // по умолчанию InfoCentr или Test или
 
-$data = $sms->sendSMS('+380480000000', 'Привет!');
+$data = $sms->sendSMS('+380480000000', 'Hello!');
 var_dump($data); // array('campaignID' => 1111, 'status' => 'MESSAGE_IN_QUEUE')
 ```
 
@@ -35,6 +36,8 @@ var_dump($data); // array('campaignID' => 1111, 'status' => 'MESSAGE_IN_QUEUE')
 Также, нужно инициализировать соединение с базой через библиотеку [cri2net/php-pdo-db](https://packagist.org/packages/cri2net/php-pdo-db)
 
 ``` php
+<?php
+
 // сохранение sms в БД для отправки
 $arr = [
     'to'               => '+380480000000',
@@ -44,10 +47,9 @@ $arr = [
     'replace_data'     => json_encode([
         'username'     => 'Джон', // массив с правилами замен
     ]),
-    'raw_text'         => 'Привет, {{username}}!', // переменные в тексте следует обрамлять в двойные фигурный кавычки
+    'raw_text'         => 'Hello, {{username}}!', // переменные в тексте следует обрамлять в двойные фигурный кавычки
 ];
 $insert_sms_id = \cri2net\php_pdo_db\PDO_DB::insert($arr, 'sms_table_name');
-
 
 // непосредственно отправка, предположительно в кроне
 $sms = new \cri2net\Sms\LetsAds\LetsAds($login, $password);
@@ -61,6 +63,8 @@ $sms->checkStatusByCron();
 
 Поле processing по умолчанию NULL. В этом случае sms попробует отправить любой доступный шлюз, а после отправки заполнит это поле своим ключём. Но можно указать это поле при вставке в БД, и тогда sms сможет отправить только один конкретный шлюз.
 ``` php
+<?php
+
 $arr = [
     // ...
     'processing' => $sms->getProcessingKey(),
